@@ -4,6 +4,9 @@ const app = express();
 const connectToDatabase = require('./db/conn');
 const port = process.env.PORT || 5000;
 
+
+app.use(express.json())
+
 const startServer = async () => {
   await connectToDatabase();
 
