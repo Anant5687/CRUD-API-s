@@ -14,6 +14,10 @@ const Product = new mongoose.Schema(
       type: String,
       required: false,
     },
+    productId: {
+      type: String,
+      required: true,
+    }
   },
   { timestamps: true }
 );

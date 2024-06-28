@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const productModel = require('../models/product.model.js');
+const getNextSequence = require('../helpers/index.js');
 
 // Add Product API
 router.post('/addProduct', async (req, res) => {
@@ -15,7 +16,12 @@ router.post('/addProduct', async (req, res) => {
       return res.status(400).json({ message: 'Price is required' });
     }
 
-    const product = await productModel.create(req.body);
+    const productId = await getNextSequence('productId');
+
+    const product = await productModel.create({
+      ...req.body,
+      productId: `PD-${productId}`,
+    });
     res.status(200).send(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
